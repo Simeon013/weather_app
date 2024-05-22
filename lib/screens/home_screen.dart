@@ -131,7 +131,7 @@ class HomeScreen extends StatelessWidget {
                       height: 30,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
@@ -162,9 +162,9 @@ class HomeScreen extends StatelessWidget {
                             )
                           ],
                         ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.1,
-                        ),
+                        // SizedBox(
+                        //   width: MediaQuery.of(context).size.width * 0.1,
+                        // ),
                         Row(
                           children: [
                             Image.asset(
@@ -203,7 +203,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
@@ -234,9 +234,9 @@ class HomeScreen extends StatelessWidget {
                             )
                           ],
                         ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.1,
-                        ),
+                        // SizedBox(
+                        //   width: MediaQuery.of(context).size.width * 0.1,
+                        // ),
                         Row(
                           children: [
                             Image.asset(
