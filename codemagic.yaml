@@ -3,10 +3,8 @@ workflows:
     name: iOS Simulator Build
     environment:
       xcode: latest
+      flutter: stable  # Ou spécifiez la version exacte si nécessaire
     scripts:
-      - name: Set up keychain
-        script: |
-          # Add setup keychain commands if necessary
       - name: Install dependencies
         script: |
           flutter pub get
