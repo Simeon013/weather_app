@@ -1,0 +1,17 @@
+workflows:
+  ios-simulator:
+    name: iOS Simulator Build
+    environment:
+      xcode: latest
+    scripts:
+      - name: Set up keychain
+        script: |
+          # Add setup keychain commands if necessary
+      - name: Install dependencies
+        script: |
+          flutter pub get
+      - name: Build for iOS simulator
+        script: |
+          flutter build ios --simulator
+    artifacts:
+      - build/ios/iphonesimulator/*.app
