@@ -3,57 +3,143 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/bloc/weather_bloc_bloc.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.position});
+
+  final Position position;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
+  // Widget getWeatherIcon(int code) {
+  //   switch (code) {
+  //     case >= 200 && < 300:
+  //       return Image.asset('assets/1.png');
+  //     case >= 300 && < 400:
+  //       return Image.asset('assets/2.png');
+  //     case >= 500 && < 600:
+  //       return Image.asset('assets/3.png');
+  //     case >= 600 && < 700:
+  //       return Image.asset('assets/4.png');
+  //     case >= 700 && < 800:
+  //       return Image.asset('assets/5.png');
+  //     case == 800:
+  //       return Image.asset('assets/6.png');
+  //     case > 800 && <= 804:
+  //       return Image.asset('assets/7.png');
+  //     default:
+  //       return Image.asset('assets/7.png');
+  //   }
+  // }
+
   Widget getWeatherIcon(int code) {
-		switch (code) {
-		  case >= 200 && < 300 :
-		    return Image.asset(
-					'assets/1.png'
-				);
-			case >= 300 && < 400 :
-		    return Image.asset(
-					'assets/2.png'
-				);
-			case >= 500 && < 600 :
-		    return Image.asset(
-					'assets/3.png'
-				);
-			case >= 600 && < 700 :
-		    return Image.asset(
-					'assets/4.png'
-				);
-			case >= 700 && < 800 :
-		    return Image.asset(
-					'assets/5.png'
-				);
-			case == 800 :
-		    return Image.asset(
-					'assets/6.png'
-				);
-			case > 800 && <= 804 :
-		    return Image.asset(
-					'assets/7.png'
-				);
-		  default:
-			return Image.asset(
-				'assets/7.png'
-			);
-		}
-	}
+    bool isDay = DateTime.now().hour > 6 && DateTime.now().hour < 19;
+
+
+    switch (code) {
+      // 200-202
+      case >=200 && <= 202:
+        return Image.asset('assets/weather_icons/200-202.png');
+      // 210-212
+      case >=210 && <= 212:
+        return Image.asset('assets/weather_icons/210-212.png');
+      // 221
+      case == 221:
+        return Image.asset('assets/weather_icons/221.png');
+      // 230-232
+      case >=230 && <= 232:
+        return Image.asset('assets/weather_icons/230-232.png');
+      // 300d 300n
+      case == 300:
+        return isDay
+          ? Image.asset('assets/weather_icons/300d.png')
+          : Image.asset('assets/weather_icons/300n.png');
+      // 301-302
+      case >=301 && <= 302:
+        return Image.asset('assets/weather_icons/301-302.png');
+      // 310-312d 310-312n
+      case >=310 && <= 312:
+        return isDay 
+          ? Image.asset('assets/weather_icons/310-312d.png')
+          : Image.asset('assets/weather_icons/310-312n.png');
+      // 313-321d 313-321n
+      case >=313 && <= 321:
+        return isDay
+          ? Image.asset('assets/weather_icons/313-321d.png')
+          : Image.asset('assets/weather_icons/313-321n.png');
+      // 500-501
+      case >=500 && <= 501:
+        return Image.asset('assets/weather_icons/500-501.png');
+      // 502-504
+      case >=502 && <= 504:
+        return Image.asset('assets/weather_icons/502-504.png');
+      // 511
+      case == 511:
+        return Image.asset('assets/weather_icons/511.png');
+      // 520-521
+      case >=520 && <= 521:
+        return Image.asset('assets/weather_icons/520-521.png');
+      // 522-231
+      case >=522 && <= 531:
+        return Image.asset('assets/weather_icons/522-531.png');
+      // 600
+      case == 600:
+        return Image.asset('assets/weather_icons/600.png');
+      // 601-602
+      case >=601 && <= 602:
+        return Image.asset('assets/weather_icons/601-602.png');
+      // 611-613
+      case >=611 && <= 613:
+        return Image.asset('assets/weather_icons/611-613.png');
+      // 615-616
+      case >=615 && <= 616:
+        return Image.asset('assets/weather_icons/615-616.png');
+      // 620-622
+      case >=620 && <= 622:
+        return Image.asset('assets/weather_icons/620-622.png');
+      // 700d 700n
+      case >=700 && < 800:
+        return isDay
+          ? Image.asset('assets/weather_icons/700d.png')
+          : Image.asset('assets/weather_icons/700n.png');
+      // 800d 800n
+      case == 800:
+        return isDay
+          ? Image.asset('assets/weather_icons/800d.png')
+          : Image.asset('assets/weather_icons/800n.png');
+      // 801-802d 801-802n
+      case >=801 && <= 802:
+        return isDay
+          ? Image.asset('assets/weather_icons/801-802d.png')
+          : Image.asset('assets/weather_icons/801-802n.png');
+      // 803-804
+      case >=803 && <= 804:
+        return Image.asset('assets/weather_icons/803-804.png');
+      
+      default :
+        return Image.asset('assets/weather_icons/default.png');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    String salutation;
+
+    DateTime now = DateTime.now();
+    if (now.hour < 12) {
+      salutation = 'Good Morning';
+    } else if (now.hour < 17) {
+      salutation = 'Good Afternoon';
+    } else {
+      salutation = 'Good Evening';
+    }
+
     return Scaffold(
       backgroundColor: Colors.black,
       extendBodyBehindAppBar: true,
@@ -105,37 +191,60 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (context, state) {
                   if (state is WeatherBlocSuccess) {
                     final weather = state.weather;
+                    // print('Weather : ${weather.weatherIcon}');
                     return SizedBox(
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '📍${weather.areaName} ${weather.country}',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w300),
+                          Row(
+                            children: [
+                              Text(
+                                '📍${weather.areaName} ${weather.country}',
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                              const Spacer(),
+                              Image.network(
+                                  'https://openweathermap.org/img/wn/${weather.weatherIcon}.png')
+                            ],
                           ),
                           const SizedBox(
                             height: 8,
                           ),
-                          // TODO : Si c'est le matin, dire bonjour sinon si c'est le soir dire bonsoir
-                          const Text(
-                            'Bonjour',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold),
+                          Row(
+                            children: [
+                              Text(
+                                salutation,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const Spacer(),
+                              // refresh icon button
+                              IconButton(
+                                onPressed: () {
+                                  context.read<WeatherBlocBloc>().add(FetchWeather(position: widget.position));
+                                },
+                                icon: const Icon(Icons.refresh, color: Colors.white),
+                              )
+                            ],
                           ),
-                          // TODO : Utiliser Lotties
-                          getWeatherIcon(weather.weatherConditionCode!),
+                          Center(
+                            child: SizedBox(
+                              height: 300,
+                              child: getWeatherIcon(weather.weatherConditionCode!),
+                            ),
+                          ),
                           Center(
                             child: Text(
                               '${weather.temperature!.celsius!.round()}°C',
                               style: const TextStyle(
                                   color: Colors.white,
-                                  fontSize: 55,
+                                  fontSize: 50,
                                   fontWeight: FontWeight.w600),
                             ),
                           ),
@@ -144,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               weather.weatherDescription!.toUpperCase(),
                               style: const TextStyle(
                                   color: Colors.white,
-                                  fontSize: 25,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w500),
                             ),
                           ),

@@ -18,7 +18,7 @@ class WeatherBlocBloc extends Bloc<WeatherBlocEvent, WeatherBlocState> {
 
         Weather weather = await wf.currentWeatherByLocation(
             event.position.latitude, event.position.longitude);
-        print('The weather is $weather');
+        // print('The weather is $weather');
         emit(WeatherBlocSuccess(weather));
       } catch (e) {
         emit(WeatherBlocFailure());
